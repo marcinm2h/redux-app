@@ -11,7 +11,7 @@ class Container extends PureComponent {
 }
 
 export default connect(
-  (counter) => ({
+  ({ counter }) => ({
     counter,
   }),
   {
