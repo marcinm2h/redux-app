@@ -42,7 +42,7 @@ choosePort(HOST, DEFAULT_PORT)
     const proxyConfig = prepareProxy(proxySetting, paths.appPublic);
     const serverConfig = createDevServerConfig(
       proxyConfig,
-      urls.lanUrlForConfig
+      urls.lanUrlForConfig,
     );
     const devServer = new WebpackDevServer(compiler, serverConfig);
     devServer.listen(port, HOST, err => {
@@ -56,8 +56,8 @@ choosePort(HOST, DEFAULT_PORT)
       openBrowser(urls.localUrlForBrowser);
     });
 
-    ['SIGINT', 'SIGTERM'].forEach(function(sig) {
-      process.on(sig, function() {
+    ['SIGINT', 'SIGTERM'].forEach((sig) => {
+      process.on(sig, () => {
         devServer.close();
         process.exit();
       });

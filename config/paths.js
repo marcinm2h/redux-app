@@ -13,10 +13,9 @@ const ensureSlash = (path, needsSlash) => {
     return path.substr(path, path.length - 1);
   } else if (!hasSlash && needsSlash) {
     return `${path}/`;
-  } else {
-    return path;
   }
-}
+  return path;
+};
 
 const getPublicUrl = appPackageJson =>
   envPublicUrl || require(appPackageJson).homepage;
@@ -26,7 +25,7 @@ const getServedPath = (appPackageJson) => {
   const servedUrl =
     envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
   return ensureSlash(servedUrl, true);
-}
+};
 
 module.exports = {
   appBuild: resolveApp('build'),

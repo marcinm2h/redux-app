@@ -26,64 +26,17 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
 
-measureFileSizesBeforeBuild(paths.appBuild)
-  .then(previousFileSizes => {
-    fs.emptyDirSync(paths.appBuild);
-    copyPublicFolder();
-    return build(previousFileSizes);
-  })
-  .then(
-    ({ stats, previousFileSizes, warnings }) => {
-      if (warnings.length) {
-        console.log(chalk.yellow('Compiled with warnings.\n'));
-        console.log(warnings.join('\n\n'));
-        console.log(
-          '\nSearch for the ' +
-            chalk.underline(chalk.yellow('keywords')) +
-            ' to learn more about each warning.'
-        );
-        console.log(
-          'To ignore, add ' +
-            chalk.cyan('// eslint-disable-next-line') +
-            ' to the line before.\n'
-        );
-      } else {
-        console.log(chalk.green('Compiled successfully.\n'));
-      }
-
-      console.log('File sizes after gzip:\n');
-      printFileSizesAfterBuild(
-        stats,
-        previousFileSizes,
-        paths.appBuild,
-        WARN_AFTER_BUNDLE_GZIP_SIZE,
-        WARN_AFTER_CHUNK_GZIP_SIZE
-      );
-      console.log();
-
-      const appPackage = require(paths.appPackageJson);
-      const publicUrl = paths.publicUrl;
-      const publicPath = config.output.publicPath;
-      const buildFolder = path.relative(process.cwd(), paths.appBuild);
-      printHostingInstructions(
-        appPackage,
-        publicUrl,
-        publicPath,
-        buildFolder,
-        useYarn
-      );
-    },
-    err => {
-      console.log(chalk.red('Failed to compile.\n'));
-      printBuildError(err);
-      process.exit(1);
-    }
-  );
+const copyPublicFolder = () => {
+  fs.copySync(paths.appPublic, paths.appBuild, {
+    dereference: true,
+    filter: file => file !== paths.appHtml,
+  });
+};
 
 const build = (previousFileSizes) => {
   console.log('Creating an optimized production build...');
 
-  let compiler = webpack(config);
+  const compiler = webpack(config);
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err) {
@@ -105,8 +58,8 @@ const build = (previousFileSizes) => {
         console.log(
           chalk.yellow(
             '\nTreating warnings as errors because process.env.CI = true.\n' +
-              'Most CI servers set it automatically.\n'
-          )
+              'Most CI servers set it automatically.\n',
+          ),
         );
         return reject(new Error(messages.warnings.join('\n\n')));
       }
@@ -117,11 +70,51 @@ const build = (previousFileSizes) => {
       });
     });
   });
-}
-
-const copyPublicFolder = () => {
-  fs.copySync(paths.appPublic, paths.appBuild, {
-    dereference: true,
-    filter: file => file !== paths.appHtml,
-  });
 };
+
+
+measureFileSizesBeforeBuild(paths.appBuild)
+  .then(previousFileSizes => {
+    fs.emptyDirSync(paths.appBuild);
+    copyPublicFolder();
+    return build(previousFileSizes);
+  })
+  .then(
+    ({ stats, previousFileSizes, warnings }) => {
+      if (warnings.length) {
+        console.log(chalk.yellow('Compiled with warnings.\n'));
+        console.log(warnings.join('\n\n'));
+        console.log(`\nSearch for the ${chalk.underline(chalk.yellow('keywords'))} to learn more about each warning.`);
+        console.log(`To ignore, add ${chalk.cyan('// eslint-disable-next-line')} to the line before.\n`);
+      } else {
+        console.log(chalk.green('Compiled successfully.\n'));
+      }
+
+      console.log('File sizes after gzip:\n');
+      printFileSizesAfterBuild(
+        stats,
+        previousFileSizes,
+        paths.appBuild,
+        WARN_AFTER_BUNDLE_GZIP_SIZE,
+        WARN_AFTER_CHUNK_GZIP_SIZE,
+      );
+      console.log();
+
+      const appPackage = require(paths.appPackageJson);
+      const publicUrl = paths.publicUrl;
+      const publicPath = config.output.publicPath;
+      const buildFolder = path.relative(process.cwd(), paths.appBuild);
+      printHostingInstructions(
+        appPackage,
+        publicUrl,
+        publicPath,
+        buildFolder,
+        useYarn,
+      );
+    },
+    err => {
+      console.log(chalk.red('Failed to compile.\n'));
+      printBuildError(err);
+      process.exit(1);
+    },
+  );

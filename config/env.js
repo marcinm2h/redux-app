@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const paths = require('./paths');
 
 delete require.cache[require.resolve('./paths')];
 
@@ -18,22 +17,22 @@ const getClientEnvironment = (publicUrl) => {
     .filter(key => REACT_APP.test(key))
     .reduce(
       (env, key) => {
-        env[key] = process.env[key];
+        env[key] = process.env[key]; // eslint-disable-line no-param-reassign
         return env;
       },
       {
         NODE_ENV: process.env.NODE_ENV || 'development',
         PUBLIC_URL: publicUrl,
-      }
+      },
     );
   const stringified = {
     'process.env': Object.keys(raw).reduce((env, key) => {
-      env[key] = JSON.stringify(raw[key]);
+      env[key] = JSON.stringify(raw[key]); // eslint-disable-line no-param-reassign
       return env;
     }, {}),
   };
 
   return { raw, stringified };
-}
+};
 
 module.exports = getClientEnvironment;

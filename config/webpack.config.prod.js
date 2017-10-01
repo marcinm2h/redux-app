@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
@@ -35,7 +34,7 @@ module.exports = {
     path: paths.appBuild,
     filename: 'static/js/[name].[chunkhash:8].js',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
-    publicPath: publicPath,
+    publicPath,
     devtoolModuleFilenameTemplate: info =>
       path
         .relative(paths.appSrc, info.absoluteResourcePath)
@@ -43,7 +42,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules', paths.appNodeModules].concat(
-      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean),
     ),
     extensions: ['.js', '.json', '.jsx'],
     alias: {
@@ -64,7 +63,6 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -86,7 +84,6 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
               compact: true,
             },
           },
@@ -125,8 +122,8 @@ module.exports = {
                     },
                   ],
                 },
-                extractTextPluginOptions
-              )
+                extractTextPluginOptions,
+              ),
             ),
           },
         ],
