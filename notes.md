@@ -1,1 +1,7 @@
+- styled-compoents?
+- Start with counter
 - use Yarn
+- `"Rails-style: separate folders for “actions”, “constants”, “reducers”, “containers”, and “components"`
+- TDD
+- thunks, redux-observables, redux-action
+- create component/container pair boilerplate script: ('name') => { createContainer('name'), createComponent('name') }
