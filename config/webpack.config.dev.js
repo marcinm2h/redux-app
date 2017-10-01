@@ -18,7 +18,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: [
     require.resolve('./polyfills'),
-    require.resolve('webpack-dev-server/client') + '?/',
+    `${require.resolve('webpack-dev-server/client')}?/`,
     require.resolve('webpack/hot/dev-server'),
     paths.appIndexJs,
   ],
@@ -27,13 +27,13 @@ module.exports = {
     pathinfo: true,
     filename: 'static/js/bundle.js',
     chunkFilename: 'static/js/[name].chunk.js',
-    publicPath: publicPath,
+    publicPath,
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   resolve: {
     modules: ['node_modules', paths.appNodeModules].concat(
-      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean),
     ),
     extensions: ['.js', '.json', '.jsx'],
     alias: {
@@ -54,7 +54,6 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
             },
             loader: require.resolve('eslint-loader'),
           },
