@@ -5,14 +5,19 @@ import Character from './Character';
 
 const Characters = ({
   onCharacterSearch,
-  onChangeCharacterId,
-  characterId = 1,
+  onChangeCharacterInputValue,
+  value,
   character = null,
 }) => (
   <div>
-    <input type="number" defaultValue={characterId} min="1" onChange={e => onChangeCharacterId(e.target.value)} />
+    <input
+      type="number"
+      defaultValue={value || '1'}
+      min="1"
+      onChange={e => onChangeCharacterInputValue(e.target.value)}
+    />
     <button
-      onClick={() => onCharacterSearch(characterId)}
+      onClick={() => onCharacterSearch(value)}
     >Search</button>
     {character
       ? <Character {...character} />
@@ -23,8 +28,8 @@ const Characters = ({
 
 Characters.propTypes = {
   onCharacterSearch: PropTypes.func.isRequired,
-  onChangeCharacterId: PropTypes.func.isRequired,
-  characterId: PropTypes.number,
+  onChangeCharacterInputValue: PropTypes.func.isRequired,
+  value: PropTypes.string,
   character: PropTypes.object,
 };
 

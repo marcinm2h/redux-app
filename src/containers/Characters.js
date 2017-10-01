@@ -8,25 +8,25 @@ import Characters from '../components/Characters';
 class CharactersContainer extends PureComponent {
   static propTypes = {
     character: PropTypes.object,
+    changeCharacterInputValue: PropTypes.func.isRequired,
+    characterInputValue: PropTypes.string.isRequired,
     searchCharacter: PropTypes.func.isRequired,
   };
 
-  state = {
-    characterId: undefined, // TODO: move to reducer
-  }
-
   render() {
-    const { character, searchCharacter } = this.props;
-    const { characterId } = this.state;
+    const {
+      character,
+      changeCharacterInputValue,
+      characterInputValue,
+      searchCharacter,
+    } = this.props;
 
     return (
       <div>
         <Characters
-          characterId={characterId}
+          value={characterInputValue}
           character={character}
-          onChangeCharacterId={characterId => this.setState(() => ({
-            characterId: Number(characterId),
-          }))}
+          onChangeCharacterInputValue={changeCharacterInputValue}
           onCharacterSearch={searchCharacter}
         />
       </div>
@@ -35,8 +35,15 @@ class CharactersContainer extends PureComponent {
 }
 
 export default connect(
-  ({ character = null }) => ({ character }),
+  ({
+    character,
+    characterInputValue,
+  }) => ({
+    character,
+    characterInputValue,
+  }),
   {
     searchCharacter,
+    changeCharacterInputValue: (value) => ({ type: 'CHANGE_INPUT_VALUE', payload: { value } }),
   },
 )(CharactersContainer);

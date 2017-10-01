@@ -10,6 +10,15 @@ const character = (state = null, action = {}) => {
   }
 };
 
+const characterInputValue = (state = '', action = {}) => {
+  switch (action.type) {
+    case 'CHANGE_INPUT_VALUE':
+      return action.payload.value;
+    default:
+      return state;
+  }
+};
+
 const counter = (state = 0, action = {}) => {
   switch (action.type) {
     case 'ADD':
@@ -29,6 +38,7 @@ export const searchCharacter = characterId => dispatch => {
 
 export default combineReducers({
   character,
+  characterInputValue,
   counter,
   router: routerReducer,
 });

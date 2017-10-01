@@ -1,4 +1,8 @@
-- styled-compoents?
+# TODO
+- create base components: <Input /> <Button /> <Link />...
+
+# NOTES
+- styled-components?
 - Start with counter
 - use Yarn
 - `"Rails-style: separate folders for “actions”, “constants”, “reducers”, “containers”, and “components"`
