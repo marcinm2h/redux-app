@@ -16,6 +16,10 @@ const env = getClientEnvironment(publicUrl);
 
 module.exports = {
   devtool: 'cheap-module-source-map',
+  devServer: {
+    // For routing -> resolve all urls with index.html, and route on client
+    historyApiFallback: true,
+  },
   entry: [
     require.resolve('./polyfills'),
     `${require.resolve('webpack-dev-server/client')}?/`,
