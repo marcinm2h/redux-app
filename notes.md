@@ -1,0 +1,2 @@
+- use Yarn
+- try enzyme over jest
