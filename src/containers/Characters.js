@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { searchCharacter } from '../reducers';
-import actionTypes from '../constants/actionTypes';
+import { characterInputChange } from '../actions/characterInput';
 import Characters from '../components/Characters';
 
 class CharactersContainer extends PureComponent {
@@ -45,9 +45,6 @@ export default connect(
   }),
   {
     searchCharacter,
-    changeCharacterInputValue: (value) => ({
-      type: actionTypes.CHARACTER_INPUT.CHANGE,
-      payload: { value },
-    }),
+    changeCharacterInputValue: characterInputChange,
   },
 )(CharactersContainer);

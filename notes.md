@@ -4,6 +4,9 @@
 - create base components: <Input /> <Button /> <Link />...
 
 # NOTES
+- action-creators(?) from npm
+- reselect
+- keep side effects in actionCreators/thunks
 - styled-components?
 - Start with counter
 - use Yarn

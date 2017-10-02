@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import actionTypes from '../constants/actionTypes';
+import { ADD, SUBSTRACT } from '../actions/counter';
+import { characterChange, CHARACTER_CHANGE } from '../actions/character';
+import { CHARACTER_INPUT_CHANGE } from '../actions/characterInput';
 
 const character = (state = null, action = {}) => {
   switch (action.type) {
-    case actionTypes.CHARACTER.CHANGE:
+    case CHARACTER_CHANGE:
       return action.payload.character;
     default:
       return state;
@@ -13,7 +15,7 @@ const character = (state = null, action = {}) => {
 
 const characterInputValue = (state = '', action = {}) => {
   switch (action.type) {
-    case actionTypes.CHARACTER_INPUT.CHANGE:
+    case CHARACTER_INPUT_CHANGE:
       return action.payload.value;
     default:
       return state;
@@ -22,9 +24,9 @@ const characterInputValue = (state = '', action = {}) => {
 
 const counter = (state = 0, action = {}) => {
   switch (action.type) {
-    case actionTypes.COUNTER.ADD:
+    case ADD:
       return state + 1;
-    case actionTypes.COUNTER.SUBSTRACT:
+    case SUBSTRACT:
       return state - 1;
     default:
       return state;
@@ -34,7 +36,7 @@ const counter = (state = 0, action = {}) => {
 export const searchCharacter = characterId => dispatch => {
   fetch(`https://swapi.co/api/people/${characterId}/`)
     .then(response => response.json())
-    .then(character => dispatch({ type: actionTypes.CHARACTER.CHANGE, payload: { character } }));
+    .then(character => dispatch(characterChange(character)));
 };
 
 export default combineReducers({
