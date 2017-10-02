@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { searchCharacter } from '../reducers';
+import { searchCharacter } from '../actions/character';
 import { characterInputChange } from '../actions/characterInput';
 import Characters from '../components/Characters';
 
