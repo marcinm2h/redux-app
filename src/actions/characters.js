@@ -1,3 +1,5 @@
+import { getCacheIds, getSelectedCacheCharacter } from '../reducers/characters';
+
 export const ADD_TO_CACHE = 'ADD_TO_CACHE';
 export const addToCache = (character) => ({
   type: ADD_TO_CACHE,
@@ -17,11 +19,11 @@ export const inputChange = (value) => ({
 });
 
 export const searchCharacter = characterId => (dispatch, getState) => {
-  const { characters: { cache } } = getState();
-  if (cache.ids.includes(characterId)) { // isInCache(characterId) or selector getCharacter?
-    dispatch(characterChange(cache.characters.find(({ id }) => id === characterId)));
+  const state = getState();
+  if (getCacheIds(state).includes(characterId)) {
+    dispatch(characterChange(getSelectedCacheCharacter(state)));
   } else {
-    fetch(`https://swapi.co/api/people/${characterId}/`)
+    fetch(`https://swapi.co/api/people/${characterId}/`) // TODO: handle errors and "not found" response TODO2: add abstraction over fetch - api.getCharacter(id)
       .then(response => response.json())
       .then(data => {
         const character = { id: characterId, ...data };
