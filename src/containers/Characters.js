@@ -2,15 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { searchCharacter } from '../actions/character';
-import { characterInputChange } from '../actions/characterInput';
+import { inputChange, searchCharacter } from '../actions/characters';
 import Characters from '../components/Characters';
 
 class CharactersContainer extends PureComponent {
   static propTypes = {
     character: PropTypes.object,
     changeCharacterInputValue: PropTypes.func.isRequired,
-    characterInputValue: PropTypes.string.isRequired,
+    input: PropTypes.string.isRequired,
     searchCharacter: PropTypes.func.isRequired,
   };
 
@@ -18,14 +17,14 @@ class CharactersContainer extends PureComponent {
     const {
       character,
       changeCharacterInputValue,
-      characterInputValue,
+      input,
       searchCharacter,
     } = this.props;
 
     return (
       <div>
         <Characters
-          value={characterInputValue}
+          value={input}
           character={character}
           onChangeCharacterInputValue={changeCharacterInputValue}
           onCharacterSearch={searchCharacter}
@@ -36,15 +35,9 @@ class CharactersContainer extends PureComponent {
 }
 
 export default connect(
-  ({
-    character,
-    characterInputValue,
-  }) => ({
-    character,
-    characterInputValue,
-  }),
+  ({ characters: { input, character } }) => ({ input, character }),
   {
     searchCharacter,
-    changeCharacterInputValue: characterInputChange,
+    changeCharacterInputValue: inputChange,
   },
 )(CharactersContainer);

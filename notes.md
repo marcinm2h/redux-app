@@ -1,6 +1,4 @@
 # TODO
-- create action types consts
-- create action creators
 - create base components: <Input /> <Button /> <Link />...
 
 # NOTES
