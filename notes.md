@@ -1,5 +1,5 @@
 # TODO
-- create base components: <Input /> <Button /> <Link />...
+- Try styled-components
 
 # GUIDES
 - use Yarn
@@ -9,7 +9,7 @@
 
 # NOTES
 - redux-actions
+- normalizr
 - reselect // ¯\\\_(ツ)\_/¯
-- styled-components?
 - `"Rails-style: separate folders for “actions”, “constants”, “reducers”, “containers”, and “components"`
 - create component/container pair + tests boilerplate script: ('name') => { createContainer('name', { tests: true }), createComponent('name', { tests: true }) }
