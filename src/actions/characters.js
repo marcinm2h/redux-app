@@ -1,3 +1,4 @@
+import api from '../utils/api';
 import { getCacheIds, getSelectedCacheCharacter } from '../reducers/characters';
 
 export const ADD_TO_CACHE = 'ADD_TO_CACHE';
@@ -23,12 +24,15 @@ export const searchCharacter = characterId => (dispatch, getState) => {
   if (getCacheIds(state).includes(characterId)) {
     dispatch(characterChange(getSelectedCacheCharacter(state)));
   } else {
-    fetch(`https://swapi.co/api/people/${characterId}/`) // TODO: handle errors and "not found" response TODO2: add abstraction over fetch - api.getCharacter(id)
-      .then(response => response.json())
-      .then(data => {
-        const character = { id: characterId, ...data };
-        dispatch(addToCache(character));
-        dispatch(characterChange(character));
+    api.getCharacter(characterId) // const character = await api.getCharacter(characterId)
+      .then(({ data, error }) => {
+        if (error) {
+          dispatch({ type: 'FETCH_CHARACTER_FAILED', payload: { characterId } });
+        } else {
+          const character = { id: characterId, ...data };
+          dispatch(addToCache(character));
+          dispatch(characterChange(character));
+        }
       });
   }
 };
