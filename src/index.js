@@ -22,9 +22,6 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(...middleware)),
 );
 
-// const { push } = require('react-router-redux');
-// window.navigate = (path) => store.dispatch(push(path));
-
 ReactDOM.render((
   <Provider store={store}>
     <ConnectedRouter history={history}>
