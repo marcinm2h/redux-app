@@ -1,5 +1,10 @@
 # TODO
-- use some api
+- WRITE TESTS!
+- youtube api
+- youtube player
+- youtube playlist
+- search yt
+- write api wrapper
 
 # GUIDES
 - `"Rails-style: separate folders for “actions”, “constants”, “reducers”, “containers”, and “components"`
