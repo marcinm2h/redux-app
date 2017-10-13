@@ -1,6 +1,6 @@
 // import { youtube } from 'googleapis';
 
-// const api = youtube('v3');
+// const yt = youtube('v3');
 const YT_API_KEY = process.env.YT_API_KEY;
 
 // const query = query => new Promise((resolve, reject) => {
@@ -30,12 +30,9 @@ const YT_API_KEY = process.env.YT_API_KEY;
 //   });
 // });
 
-// const search = promisify(api.search.list);
-
+// const search = promisify(yt.search.list);
 
 const sendRequest = async (url, options) => {
-  // const q = await search('redux');
-  // console.log(q);
   const response = await fetch(url, options);
   if (response.ok) {
     const data = await response.json();
