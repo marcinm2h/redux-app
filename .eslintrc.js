@@ -8,6 +8,7 @@ module.exports = {
         'arrow-parens': 0,
         'consistent-return': 0,
         'global-require': 0,
+        'import/no-extraneous-dependencies': 0,
         'import/no-dynamic-require': 0,
         'no-console': 0,
         'no-shadow': 0,

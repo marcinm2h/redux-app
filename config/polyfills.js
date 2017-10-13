@@ -5,4 +5,7 @@ if (typeof Promise === 'undefined') {
 
 require('whatwg-fetch');
 
+require('raf/polyfill');
+
 Object.assign = require('object-assign');
+
