@@ -1,10 +1,7 @@
 # TODO
 - WRITE TESTS!
 - youtube api
-- youtube player
-- youtube playlist
-- search yt
-- write api wrapper
+- test youtube component
 
 # GUIDES
 - `"Rails-style: separate folders for “actions”, “constants”, “reducers”, “containers”, and “components"`
@@ -13,6 +10,7 @@
 - if small - create styled components in-place
 - keep side effects in actionCreators (thunks)
 - probably would not use rxjs as this is gonna be small
+- keep YT_API_KEY in `.env` file in project's root
 
 # NOTES
 - normalizr
