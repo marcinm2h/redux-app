@@ -1,7 +1,20 @@
 const fs = require('fs');
 const path = require('path');
+const paths = require('./paths');
 
 delete require.cache[require.resolve('./paths')];
+
+const dotenvFiles = [
+  paths.dotenv,
+].filter(Boolean);
+
+dotenvFiles.forEach(dotenvFile => {
+  if (fs.existsSync(dotenvFile)) {
+    require('dotenv').config({
+      path: dotenvFile,
+    });
+  }
+});
 
 const appDirectory = fs.realpathSync(process.cwd());
 process.env.NODE_PATH = (process.env.NODE_PATH || '')
@@ -10,26 +23,21 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
   .map(folder => path.resolve(appDirectory, folder))
   .join(path.delimiter);
 
-const REACT_APP = /^REACT_APP_/i;
+const CLIENT_KEYS = ['YT_API_KEY'];
 
 const getClientEnvironment = (publicUrl) => {
   const raw = Object.keys(process.env)
-    .filter(key => REACT_APP.test(key))
-    .reduce(
-      (env, key) => {
-        env[key] = process.env[key]; // eslint-disable-line no-param-reassign
-        return env;
-      },
-      {
-        NODE_ENV: process.env.NODE_ENV || 'development',
-        PUBLIC_URL: publicUrl,
-      },
-    );
+    .filter(key => CLIENT_KEYS.includes(key))
+    .reduce((env, key) => Object.assign(env, {
+      [key]: process.env[key],
+    }), {
+      NODE_ENV: process.env.NODE_ENV || 'development',
+      PUBLIC_URL: publicUrl,
+    });
   const stringified = {
-    'process.env': Object.keys(raw).reduce((env, key) => {
-      env[key] = JSON.stringify(raw[key]); // eslint-disable-line no-param-reassign
-      return env;
-    }, {}),
+    'process.env': Object.keys(raw).reduce((env, key) => Object.assign(env, {
+      [key]: JSON.stringify(raw[key]),
+    }), {}),
   };
 
   return { raw, stringified };

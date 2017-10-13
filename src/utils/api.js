@@ -1,6 +1,6 @@
-import { youtube } from 'googleapis';
+// import { youtube } from 'googleapis';
 
-const api = youtube('v3');
+// const api = youtube('v3');
 const YT_API_KEY = process.env.YT_API_KEY;
 
 // const query = query => new Promise((resolve, reject) => {
@@ -17,25 +17,25 @@ const YT_API_KEY = process.env.YT_API_KEY;
 //   });
 // });
 
-const promisify = fn => params => new Promise((resolve, reject) => {
-  fn({
-    auth: YT_API_KEY,
-    ...params,
-  }, (error, data) => {
-    if (error) {
-      reject(error);
-    } else {
-      resolve(data);
-    }
-  });
-});
+// const promisify = fn => params => new Promise((resolve, reject) => {
+//   fn({
+//     auth: YT_API_KEY,
+//     ...params,
+//   }, (error, data) => {
+//     if (error) {
+//       reject(error);
+//     } else {
+//       resolve(data);
+//     }
+//   });
+// });
 
-const search = promisify(api.search.list);
+// const search = promisify(api.search.list);
 
 
 const sendRequest = async (url, options) => {
-  const q = await search('redux');
-  console.log(q);
+  // const q = await search('redux');
+  // console.log(q);
   const response = await fetch(url, options);
   if (response.ok) {
     const data = await response.json();
