@@ -4,11 +4,7 @@ const paths = require('./paths');
 
 delete require.cache[require.resolve('./paths')];
 
-const dotenvFiles = [
-  paths.dotenv,
-].filter(Boolean);
-
-dotenvFiles.forEach(dotenvFile => {
+[paths.dotenv].forEach(dotenvFile => {
   if (fs.existsSync(dotenvFile)) {
     require('dotenv').config({
       path: dotenvFile,
