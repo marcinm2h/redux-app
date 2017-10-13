@@ -1,38 +1,21 @@
-// import { youtube } from 'googleapis';
+import { createQueryString, fetchData } from './';
 
-// const yt = youtube('v3');
+const YT_API_URL = 'https://www.googleapis.com/youtube/v3/';
 const YT_API_KEY = process.env.YT_API_KEY;
 
-// const query = query => new Promise((resolve, reject) => {
-//   api.search.list({
-//     auth: YT_API_KEY,
-//     part: 'snippet',
-//     q: query,
-//   }, (error, data) => {
-//     if (error) {
-//       reject(error);
-//     } else {
-//       resolve(data);
-//     }
-//   });
-// });
+const createUrl = (endpoint, options) =>
+  `${YT_API_URL}${endpoint}${createQueryString({
+    key: YT_API_KEY,
+    ...options,
+  })}`;
 
-// const promisify = fn => params => new Promise((resolve, reject) => {
-//   fn({
-//     auth: YT_API_KEY,
-//     ...params,
-//   }, (error, data) => {
-//     if (error) {
-//       reject(error);
-//     } else {
-//       resolve(data);
-//     }
-//   });
-// });
+const requestApi = (endpoint, query, options) => fetchData(createUrl(endpoint, query), options);
 
-// const search = promisify(yt.search.list);
+const search = (query, { part = 'snippet' } = {}) => requestApi('search', { part, q: query });
 
-const sendRequest = async (url, options) => {
+const characterRequest = async (url, options) => {
+  const x = await search('redux');
+  console.log(x);
   const response = await fetch(url, options);
   if (response.ok) {
     const data = await response.json();
@@ -42,17 +25,9 @@ const sendRequest = async (url, options) => {
   return { error };
 };
 
-const getCharacter = characterId => sendRequest(`https://swapi.co/api/people/${characterId}/`);
+const getCharacter = characterId => characterRequest(`https://swapi.co/api/people/${characterId}/`);
 
-export default { getCharacter };
-
-// const { youtube } = require('googleapis');
-// const yt = youtube('v3');
-
-// const resp = yt.search.list({
-//   auth: API_KEY,
-//   part: 'snippet',
-//   q: 'Dan Abramov'
-// }, (error, response) => {
-//   console.log(response);
-// });
+export default {
+  getCharacter,
+  search,
+};
