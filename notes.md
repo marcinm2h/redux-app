@@ -13,6 +13,11 @@
 - keep YT_API_KEY in `.env` file in project's root
 
 # NOTES
+- docker
+- https://github.com/jgthms/bulma
+- https://github.com/prettier/prettier
+- https://github.com/axios/axios
+- http://bluebirdjs.com
 - normalizr
 - redux-actions
 - reselect  ( ¯\\\_(ツ)\_/¯ )
