@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Character from './Character';
+const Character = props => (
+  <pre>
+    {JSON.stringify(props, null, 2)}
+  </pre>
+);
 
 const Characters = ({
   onCharacterSearch,
