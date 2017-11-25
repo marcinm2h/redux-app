@@ -16,8 +16,8 @@
 - docker
 - https://github.com/jgthms/bulma
 - https://github.com/prettier/prettier
-- https://github.com/axios/axios
 - http://bluebirdjs.com
+- try wrap YT api with graphql
 - normalizr
 - redux-actions
 - reselect  ( ¯\\\_(ツ)\_/¯ )
