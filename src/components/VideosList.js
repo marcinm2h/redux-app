@@ -6,8 +6,8 @@ const VideosList = ({ items }) => (
   <div>
     {items.map(item => (
       <VideoItem
+        key={item.id}
         {...item}
-        key={item.videoId}
       />
     ))}
   </div>

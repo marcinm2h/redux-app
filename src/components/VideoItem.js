@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 const VideoItem = ({
   channelTitle,
   description,
+  id,
   thumbnailSize = 'default',
   thumbnails,
   title,
-  videoId,
 }) => (
   <div>
     <div>
@@ -21,7 +21,7 @@ const VideoItem = ({
     <div>
       {channelTitle}:
       {title}
-      {videoId}
+      {id}
       {description}
     </div>
   </div>
@@ -30,10 +30,10 @@ const VideoItem = ({
 VideoItem.propTypes = {
   channelTitle: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   thumbnailSize: PropTypes.string,
   thumbnails: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
-  videoId: PropTypes.string.isRequired,
 };
 
 export default VideoItem;

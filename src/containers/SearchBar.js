@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { changeInput } from '../actions/input';
+import { search } from '../actions/videos';
 import SearchBar from '../components/SearchBar';
 
 class SearchBarContainer extends PureComponent {
@@ -34,11 +36,9 @@ class SearchBarContainer extends PureComponent {
 }
 
 export default connect(
-  () => ({
-    input: '',
-  }),
+  ({ input }) => ({ input }),
   {
-    changeInput: () => {},
-    search: () => {},
+    changeInput,
+    search,
   },
 )(SearchBarContainer);

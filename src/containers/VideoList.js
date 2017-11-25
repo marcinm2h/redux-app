@@ -26,4 +26,6 @@ class VideoListContainer extends PureComponent {
   }
 }
 
-export default connect(() => ({ items: undefined }))(VideoListContainer);
+export default connect(
+  ({ videos }) => ({ ...videos }),
+)(VideoListContainer);
