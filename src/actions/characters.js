@@ -18,18 +18,19 @@ const getCharacter = characterId => characterRequest(`https://swapi.co/api/peopl
 // <- delete it
 
 export const ADD_TO_CACHE = 'ADD_TO_CACHE';
+export const CHARACTER_CHANGE = 'CHARACTER_CHANGE';
+export const CHARACTER_INPUT_CHANGE = 'CHARACTER_INPUT_CHANGE';
+
 export const addToCache = (character) => ({
   type: ADD_TO_CACHE,
   payload: { character },
 });
 
-export const CHARACTER_CHANGE = 'CHARACTER_CHANGE';
 export const characterChange = (character) => ({
   type: CHARACTER_CHANGE,
   payload: { character },
 });
 
-export const CHARACTER_INPUT_CHANGE = 'CHARACTER_INPUT_CHANGE';
 export const inputChange = (value) => ({
   type: CHARACTER_INPUT_CHANGE,
   payload: { value },
